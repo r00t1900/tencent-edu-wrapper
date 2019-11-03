@@ -3,7 +3,6 @@
 
 `pip install pycryptodome`
 
-使用方法
 查看帮助
 `python wrapper_cli.py -h`
 
