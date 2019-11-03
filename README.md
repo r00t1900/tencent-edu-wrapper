@@ -1,10 +1,10 @@
-##环境配置
+环境配置
 >python3.6+
 
 `pip install pycryptodome`
 
-##使用方法
-###查看帮助
+使用方法
+查看帮助
 `python wrapper_cli.py -h`
 
 ```
@@ -24,13 +24,13 @@ optional arguments:
                         specify the filename of metadata file(.xls)
 
 ```
-###文件模式
+文件模式
 `python wrapper_cli.py -f test.m3u8.sqlite`
 ```
 [+]     target on test.m3u8.sqlite
 [+]     export to test.ts in 1804.86ms
 ```
-###目录模式
+目录模式
 `python wrapper_cli.py -r e:\test`
 ```
 [+]     target on 0cf3cdc34fd3303d510c7b30262560b7.m3u8.sqlite
@@ -47,14 +47,14 @@ optional arguments:
 [+]     export to 5a0bd006b938f5bd36dcdf25b029b7aa.ts in 714.56ms
 [+]     metadata saved
 ```
-###设置输出目录
+设置输出目录
 `python wrapper_cli.py -f test.sqlite -o export`
 
 or
 
 `python wrapper_cli.py -r e:\test -o export`
 
-##待改进
+待改进
 从meta的token中：
 
 获取视频文件名和视频文件自动分类
