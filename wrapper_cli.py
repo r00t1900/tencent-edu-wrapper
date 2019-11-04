@@ -14,11 +14,11 @@ parser.add_argument('-o', '--output', dest='export_dir', help='dir to export, de
                     default='.')
 parser.add_argument('-m', '--meta', dest='meta_file_name', help='specify the filename of metadata file(.xls)',
                     default=None)
-
 args = parser.parse_args()
 
 if (args.file is None) ^ (args.directory is None):
     w = wrapper()
+    w.auto_filter = args.auto_filter  # 设置开启自动分类功能的标志位
     if args.meta_file_name is None:  # 设置meta filename
         pass
     else:
