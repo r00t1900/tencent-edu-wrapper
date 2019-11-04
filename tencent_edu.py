@@ -13,6 +13,7 @@ from pyexcel_xls import save_data
 class wrapper:
     metadata_debug = False
     cache_debug = False
+    auto_filter = True
     export_dir = '.'
     meta_export_filename = 'meta.xls'
 
@@ -105,7 +106,7 @@ class wrapper:
             # print(result)
         return result
 
-    def __fetch_one_ts(self, filename: str):
+    def __fetch_one_ts(self, filename: str, uin: str, term_id: str):
         start_time = time.time()
         # 文件存在，读取sqlite3数据库
         caches_table_name = 'caches'
@@ -171,12 +172,14 @@ class wrapper:
 
         # 保存文件
         save_filename = os.path.split(filename)[1].lower().replace('.m3u8.sqlite', '.ts')
-        save_root = os.path.abspath(self.export_dir)
-        save_path = os.path.join(save_root, save_filename)
-        if os.path.exists(save_root):
+        export_dir = os.path.abspath(self.export_dir)
+        term_id = str(term_id)  # 视频集共用一个term_id，以此对多个视频进行分类
+        save_dir = os.path.join(export_dir, term_id)  # 视频保存的文件夹完整路径
+        save_path = os.path.join(save_dir, save_filename)  # 视频文件保存的完整路径
+        if os.path.exists(save_dir):
             pass
         else:
-            os.makedirs(save_root)
+            os.makedirs(save_dir)
 
         with open(save_path, 'wb') as fp1:
             fp1.write(plain)
@@ -198,11 +201,16 @@ class wrapper:
             pass
         else:
             print('[-]\tfile \"{}\" does not exist, skipped.'.format(db_filename))
-            return
-
-        meta_this = self.__fetch_one_metadata(filename=db_filename)
-        self.__fetch_one_ts(filename=db_filename)
-        return meta_this
+            return None
+        try:
+            meta_this = self.__fetch_one_metadata(filename=db_filename)
+            uin = meta_this[1]
+            term_id = meta_this[2]
+            self.__fetch_one_ts(filename=db_filename, uin=uin, term_id=term_id)
+            return meta_this
+        except db.DatabaseError as e:
+            print('[-]\tdamage at {}'.format(os.path.split(db_filename)[1]))
+            return None
 
     def process_directory(self, directory: str):
         meta_all = []
