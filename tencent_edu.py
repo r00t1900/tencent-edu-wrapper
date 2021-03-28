@@ -51,10 +51,10 @@ class wrapper:
         # token in path(if exists)
         # path
         o_path = result.path
-        o_token_raw = re.findall(r'token\.([\w]+)\.v', o_path)
+        o_token_raw = re.findall(r'token\.([\S]+)\%', o_path)
         if len(o_token_raw):
             # tokens = parse.parse_qs(base64_url_decode(token_raw[0]))  # 二进制形式
-            o_tokens = parse.parse_qs(self.__base64_url_decode(o_token_raw[0]).decode())  # 字符串形式
+            o_tokens = parse.parse_qs(self.__base64_url_decode(o_token_raw[0]).decode('utf-8', 'ignore'))  # 字符串形式
         else:
             o_tokens = None
 
