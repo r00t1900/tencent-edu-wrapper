@@ -96,12 +96,12 @@ class wrapper:
             print('[-]\tmetadata does not exists in {}'.format(os.path.split(filename)[1]))
             return None
         ex = self.__extract_from_url(url=metadata)
-        result = [os.path.split(filename)[1], ex.tokens['uin'][0], ex.tokens['term_id'][0], ex.tokens['ext'][0]]
+        result = [os.path.split(filename)[1], ex.tokens['uin'][0], ex.tokens['term_id'][0], ex.tokens['pskey'][0]]
 
         if self.metadata_debug:
             print('[+]\tMetadata of {}:'.format(os.path.split(filename)[1]))
-            print('[+]\tuin:{}\tterm_id:{}\text:{}'.format(ex.tokens['uin'][0], ex.tokens['term_id'][0],
-                                                           ex.tokens['ext'][0]))
+            print('[+]\tuin:{}\tterm_id:{}\tpskey:{}'.format(ex.tokens['uin'][0], ex.tokens['term_id'][0],
+                                                           ex.tokens['pskey'][0]))
             print('[+]\targs:{}'.format(ex.queries))
             # print(result)
         return result
